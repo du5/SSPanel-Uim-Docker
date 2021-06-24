@@ -17,7 +17,7 @@ services:
     php:
         container_name: php
         restart: always
-        image: myphp
+        image: gtary/php:ssp
         depends_on:
             - mariadb
         volumes: 

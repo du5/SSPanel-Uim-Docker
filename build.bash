@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker build ./file/php -t myphp
-
 rm -rf SSPanel-Uim/vendor SSPanel-Uim/composer.lock 
 
 docker run --rm -v $PWD/SSPanel-Uim:/app composer composer install  --ignore-platform-reqs
