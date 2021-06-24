@@ -1,0 +1,41 @@
+version: '2'
+services:
+    nginx:
+        container_name: nginx
+        image: nginx:alpine
+        ports:
+            - 880:80
+        depends_on:
+            - php
+        volumes: 
+            - ./SSPanel-Uim:/usr/www/html
+            - ./file/nginx:/etc/nginx/conf.d
+        environment: 
+            - TZ=Asia/Shanghai
+
+    php:
+        container_name: php
+        image: myphp
+        depends_on:
+            - mariadb
+        volumes: 
+            - ./SSPanel-Uim:/var/www/html
+        environment: 
+            - TZ=Asia/Shanghai
+
+    mariadb:
+        container_name: mariadb
+        image: mariadb
+        environment: 
+            - TZ=Asia/Shanghai
+            - MARIADB_ROOT_PASSWORD=599f6f06-3eae-404c-bd69-16d9a62d6458
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin
+        depends_on:
+            - mariadb
+        ports:
+            - 888:80
+        environment: 
+            - PMA_ARBITRARY=1
+            - TZ=Asia/Shanghai
