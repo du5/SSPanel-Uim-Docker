@@ -10,8 +10,7 @@ docker-compose up -d
 
 sleep 20s 
 # 创建数据库
-docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" -e"CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"'
-docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" sspanel' < ./SSPanel-Uim/sql/glzjin_all.sql
+docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" -e"SET NAMES \"utf8\";CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;use sspanel;source /tmp/sql/glzjin_all.sql;"'
 
 # 复制配置文件
 cp SSPanel-Uim/config/.config.example.php SSPanel-Uim/config/.config.php

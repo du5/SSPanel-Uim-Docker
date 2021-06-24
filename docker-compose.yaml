@@ -2,6 +2,7 @@ version: '2'
 services:
     nginx:
         container_name: nginx
+        restart: always
         image: nginx:alpine
         ports:
             - 880:80
@@ -15,6 +16,7 @@ services:
 
     php:
         container_name: php
+        restart: always
         image: myphp
         depends_on:
             - mariadb
@@ -25,12 +27,19 @@ services:
 
     mariadb:
         container_name: mariadb
+        restart: always
         image: mariadb
         environment: 
             - TZ=Asia/Shanghai
             - MARIADB_ROOT_PASSWORD=599f6f06-3eae-404c-bd69-16d9a62d6458
+        volumes: 
+            - /var/lib/mysql:/var/lib/mysql
+            - ./SSPanel-Uim/sql:/tmp/sql
+            - ./file/mariadb:/etc/mysql/conf.d
+
     phpmyadmin:
         container_name: phpmyadmin
+        restart: always
         image: phpmyadmin
         depends_on:
             - mariadb
