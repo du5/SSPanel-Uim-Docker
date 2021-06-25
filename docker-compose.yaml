@@ -31,7 +31,7 @@ services:
         image: mariadb
         environment: 
             - TZ=Asia/Shanghai
-            - MARIADB_ROOT_PASSWORD=599f6f06-3eae-404c-bd69-16d9a62d6458
+            - MARIADB_ROOT_PASSWORD=sspanel
         volumes: 
             - /var/lib/mysql:/var/lib/mysql
             - ./SSPanel-Uim/sql:/tmp/sql

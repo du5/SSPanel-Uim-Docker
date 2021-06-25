@@ -38,7 +38,9 @@ cp SSPanel-Uim/config/appprofile.example.php SSPanel-Uim/config/appprofile.php
 # pma 访问地址 http://<当前ip>:888
 # 主机名 mariadb 用户 root
 # 密码查看或修改请通过 docker-compose.yaml 文件
-vim SSPanel-Uim/config/.config.php
+sed -i "s|\\$_ENV['db_host']      = '';|\\$_ENV['db_host']      = 'mariadb';|" SSPanel-Uim/config/.config.php # 修改数据库 host
+sed -i "s|www:www|www-data:www-data|" SSPanel-Uim/config/.config.php # 修改 php 用户组
+# vim SSPanel-Uim/config/.config.php # 修改其他配置文件
 ```
 
 ### 设置 php 权限
