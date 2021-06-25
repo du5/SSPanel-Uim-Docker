@@ -53,7 +53,7 @@ docker exec -i php sh -c 'exec chown -R www-data:www-data `pwd`'
 ### 创建管理员并同步用户
 
 ```bash
-
+docker exec -i php sh -c 'exec php xcat User createAdmin'
 docker exec -i php sh -c 'exec php xcat User resetTraffic'
 docker exec -i php sh -c 'exec php xcat Tool initQQWry'
 docker exec -i php sh -c 'exec php xcat ClientDownload'
