@@ -4,7 +4,7 @@
 ### 下载源代码
 ```bash
 git clone --recurse-submodules --depth=1 https://github.com/du5/SSPanel-Uim-Docker && cd SSPanel-Uim-Docker
-# git submodule update --remote # 可选, 拉取 SSPanel-Uim 最新代码
+# rm -rf SSPanel-Uim && git submodule update --remote # 可选, 拉取 SSPanel-Uim 最新代码
 ```
 
 ### 安装 PHP 依赖
@@ -26,7 +26,14 @@ docker-compose up -d
 ### 创建数据库
 
 ```bash
-docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" -e"SET NAMES \"utf8\";CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;use sspanel;source /tmp/sql/glzjin_all.sql;"'
+docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" -e"\
+SET NAMES utf8;
+CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+use sspanel;
+source /tmp/sql/glzjin_all.sql;
+source /tmp/sql/email_queue.sql;
+source /tmp/sql/user_hourly_usage.sql;
+source /tmp/sql/user_subscribe_log.sql;"'
 ```
 
 ### 复制配置文件
