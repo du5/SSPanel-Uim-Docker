@@ -82,3 +82,21 @@ docker-compose down
 # 该命令不会删除数据库, 如需删库跑路需要额外执行吓一条命令
 # rm -rf /var/lib/mysql
 ```
+
+### 迁移备份&还原数据库
+
+```bash
+
+# 备份 sspanel 数据库
+docker exec mariadb sh -c 'exec mysqldump sspanel -uroot -p"$MARIADB_ROOT_PASSWORD"' > db.sql
+
+# 移动备份文件到 SSP 项目中的 sql 目录
+mv db.sql SSPanel-Uim/sql/
+
+# 建表&导入数据库
+docker exec -i mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" -e"
+SET NAMES utf8;
+CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+use sspanel;
+source /tmp/sql/db.sql;"'
+```
