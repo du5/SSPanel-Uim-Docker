@@ -3,21 +3,20 @@ services:
     nginx:
         container_name: nginx
         restart: always
-        image: nginx:alpine
+        image: gtary/ssp:nginx            
         ports:
             - 80:80
         depends_on:
             - php
         volumes: 
             - ./SSPanel-Uim:/usr/www/html
-            - ./file/nginx:/etc/nginx/conf.d
         environment: 
             - TZ=Asia/Shanghai
 
     php:
         container_name: php
         restart: always
-        image: gtary/php:ssp
+        image: gtary/ssp:php
         depends_on:
             - mariadb
         volumes: 
