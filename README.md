@@ -17,7 +17,7 @@ docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs
 ### 启动
 
 ```bash
-# 数据库文件位置 /var/lib/mysql
+# 数据库文件位置 /opt/data/mysql
 # 时区 Asia/Shanghai
 # 可通过 docker-compose.yaml 配置文件修改
 docker-compose up -d
@@ -26,7 +26,7 @@ docker-compose up -d
 ### 创建数据库
 
 ```bash
-docker-compose  exec -i mariadb sh -c 'exec mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e"\
+docker-compose exec -i mariadb sh -c 'exec mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e"\
 SET NAMES utf8;
 CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"'
 ```
@@ -41,7 +41,6 @@ cp SSPanel-Uim/config/appprofile.example.php SSPanel-Uim/config/appprofile.php
 # 主机名 mariadb 用户 root
 # 密码查看或修改请通过 docker-compose.yaml 文件
 sed -i "s|\\$_ENV['db_host']      = '';|\\$_ENV['db_host']      = 'mariadb';|" SSPanel-Uim/config/.config.php # 修改数据库 host
-sed -i "s|www:www|www-data:www-data|" SSPanel-Uim/config/.config.php # 修改 php 用户组
 # vim SSPanel-Uim/config/.config.php # 修改其他配置文件
 ```
 
@@ -49,7 +48,7 @@ sed -i "s|www:www|www-data:www-data|" SSPanel-Uim/config/.config.php # 修改 ph
 
 ```bash
 docker-compose exec -i php sh -c 'exec chmod -R 755 `pwd`'
-docker-compose exec -i php sh -c 'exec chown -R `whoami` `pwd`'
+docker-compose exec -i php sh -c 'exec chown -R www-data: `pwd`'
 ```
 
 ### 创建管理员并同步用户
@@ -77,7 +76,7 @@ wget https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb -P S
 # 在项目根目录下执行
 docker-compose down
 # 该命令不会删除数据库, 如需删库跑路需要额外执行下一条命令
-# rm -rf /var/lib/mysql
+# rm -rf /opt/data/mysql
 ```
 
 ### 迁移备份&还原数据库

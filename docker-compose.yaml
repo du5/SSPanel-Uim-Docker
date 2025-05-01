@@ -1,10 +1,10 @@
 services:
     nginx:
-        container_name: nginx
+        container_name: nginx-2025
         restart: always
         image: gtary/ssp:nginx
         ports:
-            - 80:80
+            - 8080:80
         depends_on:
             - php
         volumes:
@@ -13,7 +13,7 @@ services:
             - TZ=Asia/Shanghai
 
     php:
-        container_name: php
+        container_name: php-2025
         restart: always
         image: gtary/ssp:php
         depends_on:
@@ -25,30 +25,30 @@ services:
             - TZ=Asia/Shanghai
 
     mariadb:
-        container_name: mariadb
+        container_name: mariadb-2025
         restart: always
         image: mariadb:lts
         environment:
             - TZ=Asia/Shanghai
-            - MARIADB_ROOT_PASSWORD=sspanel
+            - MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD
         volumes:
-            - /var/lib/mysql:/var/lib/mysql
+            - /opt/data/mysql:/var/lib/mysql
             - ./SSPanel-Uim/db:/tmp/sql
             - ./file/mariadb:/etc/mysql/conf.d
 
     redis:
-        container_name: redis
+        container_name: redis-2025
         restart: always
         image: redis
         ports:
             - 6379:6379
         volumes:
-            - /var/lib/redis:/data
+            - /opt/data/redis:/data
         environment:
             - TZ=Asia/Shanghai
 
     phpmyadmin:
-        container_name: phpmyadmin
+        container_name: phpmyadmin-2025
         restart: always
         image: phpmyadmin
         depends_on:
