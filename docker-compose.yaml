@@ -18,6 +18,7 @@ services:
         image: gtary/ssp:php
         depends_on:
             - mariadb
+            - redis
         volumes:
             - ./SSPanel-Uim:/var/www/html
         environment:
@@ -34,6 +35,17 @@ services:
             - /var/lib/mysql:/var/lib/mysql
             - ./SSPanel-Uim/db:/tmp/sql
             - ./file/mariadb:/etc/mysql/conf.d
+
+    redis:
+        container_name: redis
+        restart: always
+        image: redis
+        ports:
+            - 6379:6379
+        volumes:
+            - /var/lib/redis:/data
+        environment:
+            - TZ=Asia/Shanghai
 
     phpmyadmin:
         container_name: phpmyadmin

@@ -56,9 +56,13 @@ docker-compose exec -i php sh -c 'exec chown -R `whoami` `pwd`'
 
 ```bash
 docker-compose exec -i php sh -c 'exec php xcat Migration new' # 导入全新数据库至最新版本
+docker-compose exec -i php sh -c 'exec php xcat Tool importSetting' # 导入数据库配置
 docker-compose exec -i php sh -c 'exec php xcat Tool createAdmin' # 创建管理员
-docker-compose exec -i php sh -c 'exec php xcat ClientDownload' # 新客户端
+docker-compose exec -i php sh -c 'exec php xcat ClientDownload' # 更新客户端
 docker-compose exec -i php sh -c 'exec php xcat Tool resetBandwidth' # 重置用户流量
+
+wget https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-City.mmdb -P SSPanel-Uim/storage/GeoLite2-City # 下载 GeoLite2-City.mmdb
+wget https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb -P SSPanel-Uim/storage/GeoLite2-Country # 下载 GeoLite2-Country.mmdb
 ```
 
 ### 配置定时任务
