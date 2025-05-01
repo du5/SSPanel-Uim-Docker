@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine3.13
+FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv \
     && apk add --no-cache tzdata libzip-dev imap-dev krb5-dev openssl-dev \
@@ -20,4 +20,4 @@ RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/test
     && echo 'request_terminate_timeout = 100' >> /usr/local/etc/php-fpm.d/zz-docker.conf \
     && echo 'request_slowlog_timeout = 0' >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
+ENV LD_PRELOAD=/usr/lib/preloadable_libiconv.so

@@ -3,14 +3,14 @@ services:
     nginx:
         container_name: nginx
         restart: always
-        image: gtary/ssp:nginx            
+        image: gtary/ssp:nginx
         ports:
             - 80:80
         depends_on:
             - php
-        volumes: 
+        volumes:
             - ./SSPanel-Uim:/usr/www/html
-        environment: 
+        environment:
             - TZ=Asia/Shanghai
 
     php:
@@ -19,21 +19,21 @@ services:
         image: gtary/ssp:php
         depends_on:
             - mariadb
-        volumes: 
+        volumes:
             - ./SSPanel-Uim:/var/www/html
-        environment: 
+        environment:
             - TZ=Asia/Shanghai
 
     mariadb:
         container_name: mariadb
         restart: always
-        image: mariadb
-        environment: 
+        image: mariadb:lts
+        environment:
             - TZ=Asia/Shanghai
             - MARIADB_ROOT_PASSWORD=sspanel
-        volumes: 
+        volumes:
             - /var/lib/mysql:/var/lib/mysql
-            - ./SSPanel-Uim/sql:/tmp/sql
+            - ./SSPanel-Uim/db:/tmp/sql
             - ./file/mariadb:/etc/mysql/conf.d
 
     phpmyadmin:
@@ -44,6 +44,6 @@ services:
             - mariadb
         ports:
             - 888:80
-        environment: 
+        environment:
             - PMA_ARBITRARY=1
             - TZ=Asia/Shanghai
