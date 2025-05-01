@@ -1,7 +1,7 @@
 FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv \
-    && apk add --no-cache tzdata libzip-dev imap-dev krb5-dev openssl-dev libyaml-dev \
+    && apk add --no-cache tzdata libzip-dev imap-dev krb5-dev openssl-dev yaml-dev \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && pecl install redis yaml \
     && docker-php-ext-enable redis yaml \
