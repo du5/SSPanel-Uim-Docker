@@ -11,8 +11,9 @@ git clone --recurse-submodules --depth=1 https://github.com/du5/SSPanel-Uim-Dock
 
 ```bash
 # rm -rf SSPanel-Uim/vendor SSPanel-Uim/composer.lock # 可选, 删除旧依赖重新安装
-docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs --no-interaction
+docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs
 ```
+
 
 ### 启动
 
@@ -26,7 +27,7 @@ docker-compose up -d
 ### 创建数据库
 
 ```bash
-docker-compose  exec -i mariadb sh -c 'exec mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e"\
+docker-compose exec -i mariadb sh -c 'exec mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e"\
 SET NAMES utf8;
 CREATE DATABASE sspanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"'
 ```
@@ -41,7 +42,6 @@ cp SSPanel-Uim/config/appprofile.example.php SSPanel-Uim/config/appprofile.php
 # 主机名 mariadb 用户 root
 # 密码查看或修改请通过 docker-compose.yaml 文件
 sed -i "s|\\$_ENV['db_host']      = '';|\\$_ENV['db_host']      = 'mariadb';|" SSPanel-Uim/config/.config.php # 修改数据库 host
-sed -i "s|www:www|www-data:www-data|" SSPanel-Uim/config/.config.php # 修改 php 用户组
 # vim SSPanel-Uim/config/.config.php # 修改其他配置文件
 ```
 
@@ -49,7 +49,7 @@ sed -i "s|www:www|www-data:www-data|" SSPanel-Uim/config/.config.php # 修改 ph
 
 ```bash
 docker-compose exec -i php sh -c 'exec chmod -R 755 `pwd`'
-docker-compose exec -i php sh -c 'exec chown -R `whoami` `pwd`'
+docker-compose exec -i php sh -c 'exec chown -R www-data: `pwd`'
 ```
 
 ### 创建管理员并同步用户
