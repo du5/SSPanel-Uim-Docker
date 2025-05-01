@@ -18,7 +18,7 @@ docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs
 ### 启动
 
 ```bash
-# 数据库文件位置 /var/lib/mysql
+# 数据库文件位置 /opt/data/mysql
 # 时区 Asia/Shanghai
 # 可通过 docker-compose.yaml 配置文件修改
 docker-compose up -d
@@ -77,7 +77,7 @@ wget https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb -P S
 # 在项目根目录下执行
 docker-compose down
 # 该命令不会删除数据库, 如需删库跑路需要额外执行下一条命令
-# rm -rf /var/lib/mysql
+# rm -rf /opt/data/mysql
 ```
 
 ### 迁移备份&还原数据库
