@@ -11,8 +11,9 @@ git clone --recurse-submodules --depth=1 https://github.com/du5/SSPanel-Uim-Dock
 
 ```bash
 # rm -rf SSPanel-Uim/vendor SSPanel-Uim/composer.lock # 可选, 删除旧依赖重新安装
-docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs --no-interaction
+docker run --rm -v $PWD/SSPanel-Uim:/app composer install --ignore-platform-reqs
 ```
+
 
 ### 启动
 
