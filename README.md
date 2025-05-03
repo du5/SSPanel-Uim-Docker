@@ -68,7 +68,7 @@ wget https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb -P S
 ### 配置定时任务
 
 ```bash
-*/5 * * * * docker-compose exec -i php sh -c 'exec php xcat Cron'
+* * * * * docker exec -i php-2025 sh -c 'exec php xcat Cron'
 ```
 
 ### 停止面板(~~跑路~~)
