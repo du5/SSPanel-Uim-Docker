@@ -2,12 +2,13 @@ services:
     nginx:
         container_name: nginx
         restart: always
-        image: gtary/ssp:nginx
+        image: nginx:alpine
         ports:
             - 80:80
         depends_on:
             - php
         volumes:
+            - ./file/nginx:/etc/nginx/conf.d
             - ./SSPanel-Uim:/usr/www/html
         environment:
             - TZ=Asia/Shanghai
