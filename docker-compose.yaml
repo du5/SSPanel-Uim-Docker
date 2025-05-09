@@ -41,8 +41,6 @@ services:
         container_name: redis-2025
         restart: always
         image: redis
-        ports:
-            - 6379:6379
         volumes:
             - /opt/data/redis:/data
         environment:
